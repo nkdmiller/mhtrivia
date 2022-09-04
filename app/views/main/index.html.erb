@@ -1,17 +1,2 @@
-<p style="color: green"><%= notice %></p>
-
-  <h1>players</h1>
-
-+ <%= turbo_stream_from 'players' %>
-+
-  <div id="players">
-    <% @players.each do |player| %>
-      <%= render player %>
-      <p>
-        <%= link_to "Show this player", player %>
-      </p>
-    <% end %>
-  </div>
-
-  <%= link_to "New player", new_player_path %>
-  </div>
+<h1>Main#index</h1>
+<p>Find me in app/views/main/index.html.erb</p>

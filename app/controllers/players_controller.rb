@@ -43,9 +43,8 @@ class PlayersController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @player.errors, status: :unprocessable_entity }
-
-        @name.broadcast_replace_later_to 'players', partial: 'players/player'
       end
+      @player.broadcast_replace_later_to 'players', partial: 'players/player'
     end
   end
 
