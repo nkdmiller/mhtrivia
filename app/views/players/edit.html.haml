@@ -1,0 +1,7 @@
+%h1 Editing player
+= render "form", player: @player
+%br/
+%div
+  = link_to "Show this player", @player
+  |
+  \#{link_to "Back to players", players_path}

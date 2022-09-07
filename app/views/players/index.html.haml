@@ -1,0 +1,11 @@
+%p{:style => "color: green"}= notice
+%h1.text-3xl.font-bold.underline
+  Hello world!
+%h1 players
+= turbo_stream_from 'players'
+#players
+  - @players.each do |player|
+    = render player
+    %p
+      = link_to "Show this player", player
+= link_to "New player", new_player_path
