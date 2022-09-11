@@ -8,10 +8,6 @@
         - player.errors.each do |error|
           %li= error.full_message
   %div
-    = form.label :username, style: "display: block"
-    = form.text_field :username
-  %div
-    = form.label :wins, style: "display: block"
-    = form.number_field :wins
-  %div
-    = form.submit
+    = form.text_field :username, class: "w-full"
+  %div.flex.justify-center
+    = form.submit "Join", class: "button-10"

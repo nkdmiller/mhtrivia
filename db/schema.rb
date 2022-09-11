@@ -10,16 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_04_153440) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_09_193453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "foods", force: :cascade do |t|
-    t.text "name"
-    t.integer "kind"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "players", force: :cascade do |t|
     t.string "username"
@@ -28,4 +21,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_04_153440) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.bigint "room_id", null: false
+    t.integer "order"
+    t.text "prompt"
+    t.string "answers", default: [], array: true
+    t.string "correct_answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_questions_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "player_id", null: false
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["player_id"], name: "index_rooms_on_player_id"
+  end
+
+  add_foreign_key "questions", "rooms"
+  add_foreign_key "rooms", "players"
 end

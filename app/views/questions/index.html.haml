@@ -1,0 +1,29 @@
+%h1 Listing questions
+
+%table
+  %thead
+    %tr
+      %th Room
+      %th Order
+      %th Prompt
+      %th Answers
+      %th Correct answer
+      %th
+      %th
+      %th
+
+  %tbody
+    - @questions.each do |question|
+      %tr
+        %td= question.room
+        %td= question.order
+        %td= question.prompt
+        %td= question.answers
+        %td= question.correct_answer
+        %td= link_to 'Show', question
+        %td= link_to 'Edit', edit_question_path(question)
+        %td= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Question', new_question_path

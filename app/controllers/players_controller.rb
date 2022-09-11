@@ -21,17 +21,22 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
-    @player = Player.new(player_params)
+    @player = Player.where(username: player_params[:username]).first_or_initialize
 
     respond_to do |format|
-      if @player.save
-        format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
-        format.json { render :show, status: :created, location: @player }
+      if @player.new_record?
+        if @player.save
+          session[:current_player_id] = @player.id
+          format.html { redirect_to player_url(@player), notice: "Player was successfully created." }
+          format.json { render :show, status: :created, location: @player }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @player.errors, status: :unprocessable_entity }
+        end
+        @player.broadcast_replace_later_to 'players', partial: 'players/player'
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @player.errors, status: :unprocessable_entity }
+        session[:current_player_id] = @player.id
       end
-      @player.broadcast_replace_later_to 'players', partial: 'players/player'
     end
   end
 

@@ -10,5 +10,6 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body
-    %main.container.mx-auto.mt-28.px-5.flex
+    = render 'layouts/navbar'
+    %main.container.mx-auto.mt-28.px-5.flex.justify-center.text-blue-200
       = yield

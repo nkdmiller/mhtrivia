@@ -1,5 +1,3 @@
-%h1 New player
-= render "form", player: @player
-%br/
-%div
-  = link_to "Back to players", players_path
+.bg-slate-100.rounded-xl.p-8.dark:bg-slate-800
+  %h1.text-center Welcome. Please enter your username!
+  = render "form", player: @player

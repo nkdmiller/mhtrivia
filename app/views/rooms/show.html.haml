@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Player:
+  = @room.player
+%p
+  %b Name:
+  = @room.name
+%p
+  %b Description:
+  = @room.description
+
+= link_to 'Edit', edit_room_path(@room)
+\|
+= link_to 'Back', rooms_path

@@ -1,0 +1,51 @@
+= form_for @room do |f|
+  - if @room.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@room.errors.count, "error")} prohibited this room from being saved:"
+      %ul
+        - @room.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :description
+    = f.text_field :description
+  = f.fields_for "questions" do |question_subform|
+    #fieldsetContainer
+      %fieldset#0
+        - answers = question_subform.object.answers
+        = question_subform.label :prompt
+        = question_subform.text_field :prompt
+        = question_subform.label :answers
+        = question_subform.text_field :answers, multiple: true, value: answers[0]
+        = question_subform.radio_button :correct_answer, 0
+        = question_subform.label :answers
+        = question_subform.text_field :answers, multiple: true, value: answers[1]
+        = question_subform.radio_button :correct_answer, 1
+        = question_subform.label :answers
+        = question_subform.text_field :answers, multiple: true, value: answers[2]
+        = question_subform.radio_button :correct_answer, 2
+        = question_subform.label :answers
+        = question_subform.text_field :answers, multiple: true, value: answers[3]
+        = question_subform.radio_button :correct_answer, 3
+  .actions
+    = f.submit 'Save'
+%button#addQuestion Add Question
+:javascript
+  const addQuestion = ()=> {
+    const createButton = document.getElementById("addQuestion");
+    createButton.addEventListener("click", () => {
+
+      const lastId = document.querySelector(`#fieldsetContainer`).lastElementChild.id;
+
+      const newId = parseInt(lastId, 10) + 1;
+
+      const newFieldset = document.querySelector('[id="0"]').outerHTML.replace(/0/g,newId);
+
+      document.querySelector("#fieldsetContainer").insertAdjacentHTML(
+          "beforeend", newFieldset
+      );
+    });
+  }
+  addQuestion()
